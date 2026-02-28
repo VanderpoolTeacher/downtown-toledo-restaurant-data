@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toledo 43604 — Food & Drink Scene</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0c0c;
+    --surface: #141414;
+    --border: #2a2a2a;
+    --accent: #e8c547;
+    --accent2: #e05c3a;
+    --accent3: #4fa3d1;
+    --text: #e8e4dc;
+    --muted: #666;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* grain texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.6;
+  }
+
+  header {
+    padding: 60px 60px 40px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    animation: fadeDown 0.8s ease forwards;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 8vw, 120px);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    color: var(--text);
+  }
+
+  h1 span { color: var(--accent); }
+
+  .subtitle {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .header-stat {
+    text-align: right;
+  }
+
+  .header-stat .big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .header-stat .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+  }
+
+  .card {
+    background: var(--surface);
+    padding: 40px;
+    animation: fadeUp 0.8s ease forwards;
+    animation-fill-mode: both;
+  }
+
+  .card:nth-child(1) { animation-delay: 0.1s; }
+  .card:nth-child(2) { animation-delay: 0.2s; }
+  .card:nth-child(3) { animation-delay: 0.3s; }
+  .card:nth-child(4) { animation-delay: 0.4s; }
+  .card:nth-child(5) { animation-delay: 0.5s; }
+  .card:nth-child(6) { animation-delay: 0.6s; }
+
+  .card-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+
+  /* === CATEGORY BARS === */
+  .cat-list { display: flex; flex-direction: column; gap: 14px; }
+
+  .cat-item {}
+
+  .cat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+
+  .cat-name {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .cat-count {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .bar-track {
+    height: 6px;
+    background: var(--border);
+    border-radius: 0;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 0;
+    transform-origin: left;
+    transform: scaleX(0);
+    animation: barGrow 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: 0.6s;
+  }
+
+  .bar-fill.restaurants { background: var(--accent); }
+  .bar-fill.bars { background: var(--accent2); }
+  .bar-fill.coffee { background: var(--accent3); }
+  .bar-fill.caterers { background: #8b5cf6; }
+  .bar-fill.other { background: #4ade80; }
+
+
+
+  /* === EMPLOYEE SIZE === */
+  .emp-bars { display: flex; flex-direction: column; gap: 18px; }
+
+  .emp-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 36px;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .emp-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  .emp-bar-track {
+    height: 10px;
+    background: var(--border);
+  }
+
+  .emp-bar-fill {
+    height: 100%;
+    transform-origin: left;
+    transform: scaleX(0);
+    animation: barGrow 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: 0.8s;
+  }
+
+  .emp-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text);
+    text-align: right;
+  }
+
+  /* === SALES DONUT (big) === */
+  .sales-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .sales-donut {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin: 0 auto;
+  }
+
+  .sales-donut svg { transform: rotate(-90deg); }
+
+  .sales-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .legend-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    flex-shrink: 0;
+  }
+
+  .legend-name {
+    flex: 1;
+    font-size: 12px;
+    color: var(--text);
+  }
+
+  .legend-count {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* === CUISINE === */
+  .cuisine-grid { display: flex; flex-direction: column; gap: 18px; }
+  .cuisine-header { display: flex; align-items: baseline; gap: 14px; margin-bottom: 7px; flex-wrap: wrap; }
+  .cuisine-name { font-size: 13px; font-weight: 600; white-space: nowrap; }
+  .cuisine-examples { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.5px; }
+  .cuisine-bar-row { display: flex; align-items: center; gap: 12px; }
+  .cuisine-track { flex: 1; }
+  .cuisine-count { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--text); width: 28px; text-align: right; flex-shrink: 0; }
+
+  /* === GENDER === */
+  .gender-split {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .gender-bar-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .gender-track {
+    height: 40px;
+    display: flex;
+    overflow: hidden;
+  }
+
+  .gender-male {
+    background: var(--accent3);
+    transform-origin: left;
+    transform: scaleX(0);
+    animation: barGrow 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: 0.9s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+
+  .gender-female {
+    background: var(--accent2);
+    transform-origin: right;
+    transform: scaleX(0);
+    animation: barGrow 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: 0.9s;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+
+  .gender-labels {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .gender-label-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .gender-pct {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px;
+    line-height: 1;
+  }
+
+  .gender-pct.male { color: var(--accent3); }
+  .gender-pct.female { color: var(--accent2); }
+
+  .gender-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .no-execs {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 10px;
+  }
+
+  /* === TOP NAMES TICKER === */
+  .ticker-wrap {
+    grid-column: 1 / -1;
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+    padding: 16px 0;
+  }
+
+  .ticker-inner {
+    display: flex;
+    gap: 60px;
+    white-space: nowrap;
+    animation: ticker 30s linear infinite;
+  }
+
+  .ticker-item {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+
+  .ticker-item span { color: var(--accent); margin-right: 8px; }
+
+  /* === SPAN CARDS === */
+  .span-2 { grid-column: span 2; }
+  .span-3 { grid-column: span 3; }
+
+  footer {
+    padding: 20px 60px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: #444;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-top: 1px solid var(--border);
+  }
+
+  /* === ANIMATIONS === */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes barGrow {
+    to { transform: scaleX(1); }
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @keyframes ringFill {
+    to { stroke-dasharray: var(--dash) 188; }
+  }
+
+  .ring-animated {
+    animation: ringFill 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: 0.6s;
+  }
+
+  /* === STAT TILES === */
+  .stat-stack { display: flex; flex-direction: column; }
+  .stat-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; flex: 1; margin-top: 8px; }
+  .stat-tile { display: flex; flex-direction: column; gap: 6px; }
+  .stat-big { font-family: 'Bebas Neue', sans-serif; font-size: 42px; line-height: 1; color: var(--text); }
+  .stat-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="subtitle">Toledo, Ohio · ZIP 43604 · Food & Drink</div>
+    <h1>DOWNTOWN TOLEDO<br><span>RESTAURANT DATA</span></h1>
+  </div>
+  <div class="header-stat">
+    <div class="big">93</div>
+    <div class="label">Establishments</div>
+  </div>
+</header>
+
+<div class="grid">
+
+  <!-- CATEGORY BREAKDOWN -->
+  <div class="card span-2">
+    <div class="card-label">// Establishment Type Breakdown</div>
+    <div class="cat-list">
+      <div class="cat-item">
+        <div class="cat-header">
+          <span class="cat-name">Restaurants</span>
+          <span class="cat-count">53 · 57%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill restaurants" style="width:100%"></div></div>
+      </div>
+      <div class="cat-item">
+        <div class="cat-header">
+          <span class="cat-name">Bars</span>
+          <span class="cat-count">15 · 16%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill bars" style="width:28.3%"></div></div>
+      </div>
+      <div class="cat-item">
+        <div class="cat-header">
+          <span class="cat-name">Coffee Shops</span>
+          <span class="cat-count">8 · 9%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill coffee" style="width:15.1%"></div></div>
+      </div>
+      <div class="cat-item">
+        <div class="cat-header">
+          <span class="cat-name">Caterers</span>
+          <span class="cat-count">5 · 5%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill caterers" style="width:9.4%"></div></div>
+      </div>
+      <div class="cat-item">
+        <div class="cat-header">
+          <span class="cat-name">Brewers + Misc</span>
+          <span class="cat-count">12 · 13%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill other" style="width:22.6%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GENDER -->
+  <div class="card">
+    <div class="card-label">// Executive Gender (67 w/ data)</div>
+    <div class="gender-split">
+      <div class="gender-labels">
+        <div class="gender-label-item">
+          <div class="gender-pct male">69%</div>
+          <div class="gender-name">Male</div>
+        </div>
+        <div class="gender-label-item" style="text-align:right">
+          <div class="gender-pct female">31%</div>
+          <div class="gender-name">Female</div>
+        </div>
+      </div>
+      <div class="gender-bar-wrap">
+        <div class="gender-track">
+          <div class="gender-male" style="width:68.7%">46</div>
+          <div class="gender-female" style="transform-origin: right;">21</div>
+        </div>
+      </div>
+      <div class="no-execs">26 establishments — no exec listed</div>
+    </div>
+  </div>
+
+
+
+  <!-- CUISINE -->
+  <div class="card span-3">
+    <div class="card-label">// Cuisine Type (53 Restaurants — inferred from name)</div>
+    <div class="cuisine-grid">
+
+      <div class="cuisine-item">
+        <div class="cuisine-header">
+          <span class="cuisine-name">American / Grill</span>
+          <span class="cuisine-examples">Chop House, Fricker's, Greg's Grill, Michael's, Rockwell's, Rusty's, Fowl & Fodder, Grumpy's, Summit Diner, Jefferson Diner, Ottawa Tavern, Wesley's, Ye Olde Cock N Bull, Ye Olde Durty Bird, Tim & Ed's</span>
+        </div>
+        <div class="cuisine-bar-row">
+          <div class="bar-track cuisine-track"><div class="bar-fill restaurants cuisine-fill" style="width:100%"></div></div>
+          <span class="cuisine-count">15</span>
+        </div>
+      </div>
+
+      <div class="cuisine-item">
+        <div class="cuisine-header">
+          <span class="cuisine-name">Bistro / Cafe / Eclectic</span>
+          <span class="cuisine-examples">Fine Things Bistro, Registry Bistro, Peacock Cafe, Adams Street Caf, Brim House, Glass City Cafe, Pam's Corner, Joesphine's Kitchen</span>
+        </div>
+        <div class="cuisine-bar-row">
+          <div class="bar-track cuisine-track"><div class="bar-fill cuisine-fill" style="width:53.3%;background:#e879f9"></div></div>
+          <span class="cuisine-count">8</span>
+        </div>
+      </div>
+
+      <div class="cuisine-item">
+        <div class="cuisine-header">
+          <span class="cuisine-name">Deli / Sandwiches / Fast Food</span>
+          <span class="cuisine-examples">Jimmy John's, Subway, Original Sub Shop, Roman's Deli, Savvy Sliders, Coney Island Hot Dog, Walnut Carryout, McDonald's</span>
+        </div>
+        <div class="cuisine-bar-row">
+          <div class="bar-track cuisine-track"><div class="bar-fill cuisine-fill" style="width:53.3%;background:var(--accent3)"></div></div>
+          <span class="cuisine-count">8</span>
+        </div>
+      </div>
+
+      <div class="cuisine-item">
+        <div class="cuisine-header">
+          <span class="cuisine-name">Mediterranean / Middle Eastern</span>
+          <span class="cuisine-examples">Souk Mediterranean Kitchen, Lazeez Restaurant, Pita Krunch, Georgios Cafe, Manos Greek Restaurant</span>
+        </div>
+        <div class="cuisine-bar-row">
+          <div class="bar-track cuisine-track"><div class="bar-fill cuisine-fill" style="width:33.3%;background:#8b5cf6"></div></div>
+          <span class="cuisine-count">5</span>
+        </div>
+      </div>
+
+      <div class="cuisine-item">
+        <div class="cuisine-header">
+          <span class="cuisine-name">Asian</span>
+          <span class="cuisine-examples">Kengo Sushi & Yakitori, China Star, Magic Wok, Balance Pan-Asian Grille, KATO Ramen</span>
+        </div>
+        <div class="cuisine-bar-row">
+          <div class="bar-track cuisine-track"><div class="bar-fill cuisine-fill" style="width:33.3%;background:#f59e0b"></div></div>
+          <span class="cuisine-count">5</span>
+        </div>
+      </div>
+
+      <div class="cuisine-item">
+        <div class="cuisine-header">
+          <span class="cuisine-name">Pub / Tavern / Sports Bar</span>
+          <span class="cuisine-examples">Manhattan's Pub 'n Cheer, Tony Packo's, Mutz Inc, Mcnerney & Son, Ice Restaurant & Bar</span>
+        </div>
+        <div class="cuisine-bar-row">
+          <div class="bar-track cuisine-track"><div class="bar-fill cuisine-fill" style="width:33.3%;background:#94a3b8"></div></div>
+          <span class="cuisine-count">5</span>
+        </div>
+      </div>
+
+      <div class="cuisine-item">
+        <div class="cuisine-header">
+          <span class="cuisine-name">Italian / Pizza / Pasta</span>
+          <span class="cuisine-examples">Spaghetti Warehouse, Home Slice Pizza, M Osteria & Bar, Focaccia's 419</span>
+        </div>
+        <div class="cuisine-bar-row">
+          <div class="bar-track cuisine-track"><div class="bar-fill cuisine-fill" style="width:26.7%;background:var(--accent2)"></div></div>
+          <span class="cuisine-count">4</span>
+        </div>
+      </div>
+
+      <div class="cuisine-item">
+        <div class="cuisine-header">
+          <span class="cuisine-name">Mexican / Latin</span>
+          <span class="cuisine-examples">San Marcos Restaurant, Poco Loco, Lowrider Cafe</span>
+        </div>
+        <div class="cuisine-bar-row">
+          <div class="bar-track cuisine-track"><div class="bar-fill cuisine-fill" style="width:20%;background:#4ade80"></div></div>
+          <span class="cuisine-count">3</span>
+        </div>
+      </div>
+
+    </div>
+    <div style="margin-top:16px;font-family:'DM Mono',monospace;font-size:10px;color:#444;letter-spacing:1.5px">* CATEGORIES INFERRED FROM ESTABLISHMENT NAMES — NOT OFFICIAL CLASSIFICATIONS</div>
+  </div>
+
+
+
+  <!-- EMPLOYEE SIZE -->
+  <div class="card span-2">
+    <div class="card-label">// Location Employee Size</div>
+    <div class="emp-bars">
+      <div class="emp-row">
+        <div class="emp-label">1–4</div>
+        <div class="emp-bar-track"><div class="emp-bar-fill" style="width:78.8%;background:var(--accent);animation-delay:0.8s"></div></div>
+        <div class="emp-num">26</div>
+      </div>
+      <div class="emp-row">
+        <div class="emp-label">5–9</div>
+        <div class="emp-bar-track"><div class="emp-bar-fill" style="width:100%;background:var(--accent);animation-delay:0.9s"></div></div>
+        <div class="emp-num">33</div>
+      </div>
+      <div class="emp-row">
+        <div class="emp-label">10–19</div>
+        <div class="emp-bar-track"><div class="emp-bar-fill" style="width:51.5%;background:var(--accent3);animation-delay:1.0s"></div></div>
+        <div class="emp-num">17</div>
+      </div>
+      <div class="emp-row">
+        <div class="emp-label">20–49</div>
+        <div class="emp-bar-track"><div class="emp-bar-fill" style="width:21.2%;background:var(--accent3);animation-delay:1.1s"></div></div>
+        <div class="emp-num">7</div>
+      </div>
+      <div class="emp-row">
+        <div class="emp-label">50–99</div>
+        <div class="emp-bar-track"><div class="emp-bar-fill" style="width:24.2%;background:var(--accent2);animation-delay:1.2s"></div></div>
+        <div class="emp-num">8</div>
+      </div>
+      <div class="emp-row">
+        <div class="emp-label">100–249</div>
+        <div class="emp-bar-track"><div class="emp-bar-fill" style="width:3%;background:var(--accent2);animation-delay:1.3s"></div></div>
+        <div class="emp-num">1</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORKFORCE STATS -->
+  <div class="card stat-stack">
+    <div class="card-label">// Workforce At A Glance</div>
+    <div class="stat-tiles">
+      <div class="stat-tile">
+        <div class="stat-big" style="color:var(--accent)">63%</div>
+        <div class="stat-desc">of venues have<br>fewer than 10 staff</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-big" style="color:var(--accent3)">~470</div>
+        <div class="stat-desc">estimated total<br>employees citywide</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-big" style="color:var(--accent2)">1</div>
+        <div class="stat-desc">venue with<br>100–249 staff</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-big">5.1</div>
+        <div class="stat-desc">avg employees<br>per establishment</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SALES VOLUME -->
+  <div class="card span-2">
+    <div class="card-label">// Annual Sales Volume</div>
+    <div class="sales-wrap">
+      <div class="sales-legend">
+        <div class="legend-row">
+          <div class="legend-dot" style="background:var(--accent)"></div>
+          <span class="legend-name">Under $500K</span>
+          <span class="legend-count">47 · 51%</span>
+        </div>
+        <div class="legend-row">
+          <div class="legend-dot" style="background:var(--accent3)"></div>
+          <span class="legend-name">$500K–$1M</span>
+          <span class="legend-count">15 · 16%</span>
+        </div>
+        <div class="legend-row">
+          <div class="legend-dot" style="background:#8b5cf6"></div>
+          <span class="legend-name">$1M–$2.5M</span>
+          <span class="legend-count">22 · 24%</span>
+        </div>
+        <div class="legend-row">
+          <div class="legend-dot" style="background:#4ade80"></div>
+          <span class="legend-name">$2.5M–$5M</span>
+          <span class="legend-count">6 · 6%</span>
+        </div>
+        <div class="legend-row">
+          <div class="legend-dot" style="background:var(--accent2)"></div>
+          <span class="legend-name">$5M+</span>
+          <span class="legend-count">2 · 2%</span>
+        </div>
+      </div>
+      <!-- stacked bar -->
+      <div style="height:32px;display:flex;margin-top:8px;overflow:hidden">
+        <div style="width:51%;background:var(--accent);transform:scaleX(0);transform-origin:left;animation:barGrow 1.2s ease forwards;animation-delay:0.7s"></div>
+        <div style="width:16%;background:var(--accent3);transform:scaleX(0);transform-origin:left;animation:barGrow 1.2s ease forwards;animation-delay:0.85s"></div>
+        <div style="width:24%;background:#8b5cf6;transform:scaleX(0);transform-origin:left;animation:barGrow 1.2s ease forwards;animation-delay:1.0s"></div>
+        <div style="width:6%;background:#4ade80;transform:scaleX(0);transform-origin:left;animation:barGrow 1.2s ease forwards;animation-delay:1.15s"></div>
+        <div style="flex:1;background:var(--accent2);transform:scaleX(0);transform-origin:left;animation:barGrow 1.2s ease forwards;animation-delay:1.3s"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- REVENUE STATS -->
+  <div class="card stat-stack">
+    <div class="card-label">// Revenue At A Glance</div>
+    <div class="stat-tiles">
+      <div class="stat-tile">
+        <div class="stat-big" style="color:var(--accent)">51%</div>
+        <div class="stat-desc">of venues earn<br>under $500K/yr</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-big" style="color:#8b5cf6">49%</div>
+        <div class="stat-desc">earn over<br>$500K annually</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-big" style="color:var(--accent2)">2</div>
+        <div class="stat-desc">venues generating<br>$5M or more</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-big" style="color:#4ade80">~$65M</div>
+        <div class="stat-desc">estimated total<br>combined revenue</div>
+      </div>
+    </div>
+  </div>
+  <!-- TICKER -->
+  <div class="ticker-wrap">
+    <div class="ticker-inner" id="ticker">
+      <span class="ticker-item"><span>★</span> Chop House-Toledo</span>
+      <span class="ticker-item"><span>★</span> Glass City Ctr</span>
+      <span class="ticker-item"><span>★</span> Georgios Cafe Intl</span>
+      <span class="ticker-item"><span>★</span> Fricker's</span>
+      <span class="ticker-item"><span>★</span> Balance Pan-Asian Grille</span>
+      <span class="ticker-item"><span>★</span> Manhattan's Pub 'n Cheer</span>
+      <span class="ticker-item"><span>★</span> Fowl & Fodder</span>
+      <span class="ticker-item"><span>★</span> KATO Ramen</span>
+      <span class="ticker-item"><span>★</span> Grumpy's</span>
+      <span class="ticker-item"><span>★</span> BIGGBY Coffee</span>
+      <span class="ticker-item"><span>★</span> Home Slice Pizza</span>
+      <span class="ticker-item"><span>★</span> Brim House</span>
+      <span class="ticker-item"><span>★</span> Kengo Sushi</span>
+      <span class="ticker-item"><span>★</span> Ice Restaurant & Bar</span>
+      <span class="ticker-item"><span>★</span> Chop House-Toledo</span>
+      <span class="ticker-item"><span>★</span> Glass City Ctr</span>
+      <span class="ticker-item"><span>★</span> Georgios Cafe Intl</span>
+      <span class="ticker-item"><span>★</span> Fricker's</span>
+      <span class="ticker-item"><span>★</span> Balance Pan-Asian Grille</span>
+      <span class="ticker-item"><span>★</span> Manhattan's Pub 'n Cheer</span>
+      <span class="ticker-item"><span>★</span> Fowl & Fodder</span>
+      <span class="ticker-item"><span>★</span> KATO Ramen</span>
+      <span class="ticker-item"><span>★</span> Grumpy's</span>
+      <span class="ticker-item"><span>★</span> BIGGBY Coffee</span>
+      <span class="ticker-item"><span>★</span> Home Slice Pizza</span>
+      <span class="ticker-item"><span>★</span> Brim House</span>
+      <span class="ticker-item"><span>★</span> Kengo Sushi</span>
+      <span class="ticker-item"><span>★</span> Ice Restaurant & Bar</span>
+    </div>
+  </div>
+
+</div>
+
+<footer>Toledo 43604 · Food &amp; Drink Landscape · 93 Verified Establishments · Data Visualization</footer>
+
+</body>
+</html>
