@@ -4,17 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Toledo 43604 — Food & Drink Scene</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=DM+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0c0c0c;
-    --surface: #141414;
-    --border: #2a2a2a;
-    --accent: #e8c547;
-    --accent2: #e05c3a;
-    --accent3: #4fa3d1;
-    --text: #e8e4dc;
-    --muted: #666;
+    --bg: #EBEBEB;
+    --surface: #F7F7F7;
+    --border: #DEDEDE;
+    --accent: #2EC4A0;
+    --accent2: #1A9E82;
+    --accent3: #1D3B35;
+    --text: #1D3B35;
+    --muted: #6B8C84;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -32,7 +32,7 @@
     content: '';
     position: fixed;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.015'/%3E%3C/svg%3E");
     pointer-events: none;
     z-index: 9999;
     opacity: 0.6;
@@ -49,7 +49,7 @@
   }
 
   h1 {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Outfit', sans-serif; font-weight: 900;
     font-size: clamp(64px, 8vw, 120px);
     line-height: 0.9;
     letter-spacing: 2px;
@@ -59,10 +59,10 @@
   h1 span { color: var(--accent); }
 
   .subtitle {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
+    font-family: 'Outfit', sans-serif; font-weight: 300;
+    font-size: 22px;
     color: var(--muted);
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     text-transform: uppercase;
   }
 
@@ -71,16 +71,16 @@
   }
 
   .header-stat .big {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Outfit', sans-serif; font-weight: 900;
     font-size: 72px;
     color: var(--accent);
     line-height: 1;
   }
 
   .header-stat .label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 3px;
+    font-family: 'Outfit', sans-serif; font-weight: 300;
+    font-size: 20px;
+    letter-spacing: 2px;
     color: var(--muted);
     text-transform: uppercase;
   }
@@ -95,6 +95,7 @@
   .card {
     background: var(--surface);
     padding: 40px;
+    border-radius: 0;
     animation: fadeUp 0.8s ease forwards;
     animation-fill-mode: both;
   }
@@ -107,9 +108,9 @@
   .card:nth-child(6) { animation-delay: 0.6s; }
 
   .card-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 3px;
+    font-family: 'Outfit', sans-serif; font-weight: 300;
+    font-size: 20px;
+    letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--muted);
     margin-bottom: 28px;
@@ -128,14 +129,14 @@
   }
 
   .cat-name {
-    font-size: 13px;
+    font-size: 26px;
     font-weight: 600;
     letter-spacing: 0.5px;
   }
 
   .cat-count {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
+    font-family: 'Outfit', sans-serif; font-weight: 300;
+    font-size: 22px;
     color: var(--muted);
   }
 
@@ -174,8 +175,8 @@
   }
 
   .emp-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
+    font-family: 'Outfit', sans-serif; font-weight: 300;
+    font-size: 20px;
     color: var(--muted);
     letter-spacing: 1px;
   }
@@ -194,8 +195,8 @@
   }
 
   .emp-num {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
+    font-family: 'Outfit', sans-serif; font-weight: 300;
+    font-size: 22px;
     color: var(--text);
     text-align: right;
   }
@@ -237,24 +238,24 @@
 
   .legend-name {
     flex: 1;
-    font-size: 12px;
+    font-size: 24px;
     color: var(--text);
   }
 
   .legend-count {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
+    font-family: 'Outfit', sans-serif; font-weight: 300;
+    font-size: 22px;
     color: var(--muted);
   }
 
   /* === CUISINE === */
   .cuisine-grid { display: flex; flex-direction: column; gap: 18px; }
   .cuisine-header { display: flex; align-items: baseline; gap: 14px; margin-bottom: 7px; flex-wrap: wrap; }
-  .cuisine-name { font-size: 13px; font-weight: 600; white-space: nowrap; }
-  .cuisine-examples { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.5px; }
+  .cuisine-name { font-size: 26px; font-weight: 600; white-space: nowrap; }
+  .cuisine-examples { font-family: 'Outfit', sans-serif; font-weight: 300; font-size: 20px; color: var(--muted); letter-spacing: 0.5px; }
   .cuisine-bar-row { display: flex; align-items: center; gap: 12px; }
   .cuisine-track { flex: 1; }
-  .cuisine-count { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--text); width: 28px; text-align: right; flex-shrink: 0; }
+  .cuisine-count { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 44px; color: var(--text); width: 28px; text-align: right; flex-shrink: 0; }
 
   /* === GENDER === */
   .gender-split {
@@ -286,8 +287,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 16px;
+    font-family: 'Outfit', sans-serif; font-weight: 900;
+    font-size: 32px;
     letter-spacing: 1px;
   }
 
@@ -301,8 +302,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 16px;
+    font-family: 'Outfit', sans-serif; font-weight: 900;
+    font-size: 32px;
     letter-spacing: 1px;
   }
 
@@ -318,7 +319,7 @@
   }
 
   .gender-pct {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Outfit', sans-serif; font-weight: 900;
     font-size: 40px;
     line-height: 1;
   }
@@ -327,16 +328,16 @@
   .gender-pct.female { color: var(--accent2); }
 
   .gender-name {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
+    font-family: 'Outfit', sans-serif; font-weight: 300;
+    font-size: 20px;
     letter-spacing: 2px;
     color: var(--muted);
     text-transform: uppercase;
   }
 
   .no-execs {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
+    font-family: 'Outfit', sans-serif; font-weight: 300;
+    font-size: 22px;
     color: var(--muted);
     margin-top: 10px;
   }
@@ -358,8 +359,8 @@
   }
 
   .ticker-item {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px;
+    font-family: 'Outfit', sans-serif; font-weight: 900;
+    font-size: 36px;
     letter-spacing: 2px;
     color: var(--muted);
     flex-shrink: 0;
@@ -373,9 +374,9 @@
 
   footer {
     padding: 20px 60px;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: #444;
+    font-family: 'Outfit', sans-serif; font-weight: 300;
+    font-size: 20px;
+    color: #aac5bf;
     letter-spacing: 2px;
     text-transform: uppercase;
     border-top: 1px solid var(--border);
@@ -414,9 +415,236 @@
   .stat-stack { display: flex; flex-direction: column; }
   .stat-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; flex: 1; margin-top: 8px; }
   .stat-tile { display: flex; flex-direction: column; gap: 6px; }
-  .stat-big { font-family: 'Bebas Neue', sans-serif; font-size: 42px; line-height: 1; color: var(--text); }
-  .stat-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+  .stat-big { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 42px; line-height: 1; color: var(--text); }
+  .stat-desc { font-size: 22px; color: var(--muted); line-height: 1.5; }
 
+
+  /* === Q&A SECTION === */
+  .qa-section {
+    background: #ffffff;
+    border-top: 1px solid var(--border);
+    padding: 52px 60px;
+  }
+
+  .qa-inner {
+    max-width: 860px;
+  }
+
+  .qa-label {
+    font-family: 'Outfit', sans-serif; font-weight: 300;
+    font-size: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .qa-hint {
+    font-size: 44px;
+    font-weight: 300;
+    color: var(--text);
+    margin-bottom: 28px;
+    line-height: 1.3;
+  }
+
+  .qa-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .suggestion-chip {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'Outfit', sans-serif; font-weight: 300;
+    font-size: 20px;
+    letter-spacing: 1px;
+    padding: 7px 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+  }
+
+  .suggestion-chip:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(46, 196, 160, 0.08);
+  }
+
+  .qa-input-wrap {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s ease;
+  }
+
+  .qa-input-wrap:focus-within {
+    border-color: var(--accent);
+  }
+
+  .qa-input {
+    flex: 1;
+    background: #f0f0f0;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 28px;
+    padding: 16px 20px;
+  }
+
+  .qa-input::placeholder {
+    color: #aac5bf;
+  }
+
+  .qa-submit {
+    background: var(--accent);
+    border: none;
+    color: #ffffff;
+    width: 54px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .qa-submit:hover {
+    background: #1A9E82;
+  }
+
+  .qa-response-wrap {
+    margin-top: 28px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+  }
+
+  .qa-response-label {
+    font-family: 'Outfit', sans-serif; font-weight: 300;
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .qa-response-text {
+    font-size: 30px;
+    line-height: 1.7;
+    color: var(--text);
+    white-space: pre-wrap;
+  }
+
+  .qa-loading {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    height: 20px;
+  }
+
+  .qa-loading span {
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    display: inline-block;
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+
+  .qa-loading span:nth-child(2) { animation-delay: 0.2s; }
+  .qa-loading span:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes pulse {
+    0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+    40% { opacity: 1; transform: scale(1); }
+  }
+
+
+  /* === RESPONSIVE / MOBILE === */
+  @media (max-width: 768px) {
+    header {
+      padding: 32px 24px 24px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    h1 { font-size: clamp(48px, 12vw, 80px); }
+
+    .header-stat { text-align: left; }
+    .header-stat .big { font-size: 52px; }
+
+    .grid {
+      grid-template-columns: 1fr;
+    }
+
+    .span-2, .span-3 {
+      grid-column: span 1;
+    }
+
+    .card {
+      padding: 28px 24px;
+    }
+
+    .credit-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .emp-row {
+      grid-template-columns: 70px 1fr 28px;
+    }
+
+    .gender-pct { font-size: 36px; }
+
+    .stat-tiles {
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .stat-big { font-size: 32px; }
+
+    .cuisine-header {
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .cuisine-count { font-size: 20px; }
+
+    .ticker-item { font-size: 14px; }
+
+    footer {
+      padding: 16px 24px;
+      font-size: 18px;
+    }
+
+    .qa-section {
+      padding: 36px 24px;
+    }
+
+    .qa-hint { font-size: 18px; }
+
+    .qa-suggestions {
+      gap: 6px;
+    }
+
+    .suggestion-chip {
+      font-size: 18px;
+      padding: 8px 12px;
+    }
+
+    .qa-input { font-size: 18px; padding: 14px 16px; }
+    .qa-response-text { font-size: 18px; }
+  }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 40px; }
+    .header-stat .big { font-size: 42px; }
+    .stat-tiles { grid-template-columns: 1fr 1fr; }
+    .stat-big { font-size: 28px; }
+    .gender-track { height: 32px; }
+    .suggestion-chip { font-size: 16px; }
+  }
 </style>
 </head>
 <body>
@@ -524,7 +752,7 @@
           <span class="cuisine-examples">Fine Things Bistro, Registry Bistro, Peacock Cafe, Adams Street Caf, Brim House, Glass City Cafe, Pam's Corner, Joesphine's Kitchen</span>
         </div>
         <div class="cuisine-bar-row">
-          <div class="bar-track cuisine-track"><div class="bar-fill cuisine-fill" style="width:53.3%;background:#e879f9"></div></div>
+          <div class="bar-track cuisine-track"><div class="bar-fill cuisine-fill" style="width:53.3%;background:#00B4D8"></div></div>
           <span class="cuisine-count">8</span>
         </div>
       </div>
@@ -546,7 +774,7 @@
           <span class="cuisine-examples">Souk Mediterranean Kitchen, Lazeez Restaurant, Pita Krunch, Georgios Cafe, Manos Greek Restaurant</span>
         </div>
         <div class="cuisine-bar-row">
-          <div class="bar-track cuisine-track"><div class="bar-fill cuisine-fill" style="width:33.3%;background:#8b5cf6"></div></div>
+          <div class="bar-track cuisine-track"><div class="bar-fill cuisine-fill" style="width:33.3%;background:#1A9E82"></div></div>
           <span class="cuisine-count">5</span>
         </div>
       </div>
@@ -557,7 +785,7 @@
           <span class="cuisine-examples">Kengo Sushi & Yakitori, China Star, Magic Wok, Balance Pan-Asian Grille, KATO Ramen</span>
         </div>
         <div class="cuisine-bar-row">
-          <div class="bar-track cuisine-track"><div class="bar-fill cuisine-fill" style="width:33.3%;background:#f59e0b"></div></div>
+          <div class="bar-track cuisine-track"><div class="bar-fill cuisine-fill" style="width:33.3%;background:#a8e6da"></div></div>
           <span class="cuisine-count">5</span>
         </div>
       </div>
@@ -568,7 +796,7 @@
           <span class="cuisine-examples">Manhattan's Pub 'n Cheer, Tony Packo's, Mutz Inc, Mcnerney & Son, Ice Restaurant & Bar</span>
         </div>
         <div class="cuisine-bar-row">
-          <div class="bar-track cuisine-track"><div class="bar-fill cuisine-fill" style="width:33.3%;background:#94a3b8"></div></div>
+          <div class="bar-track cuisine-track"><div class="bar-fill cuisine-fill" style="width:33.3%;background:#d0ede8"></div></div>
           <span class="cuisine-count">5</span>
         </div>
       </div>
@@ -590,7 +818,7 @@
           <span class="cuisine-examples">San Marcos Restaurant, Poco Loco, Lowrider Cafe</span>
         </div>
         <div class="cuisine-bar-row">
-          <div class="bar-track cuisine-track"><div class="bar-fill cuisine-fill" style="width:20%;background:#4ade80"></div></div>
+          <div class="bar-track cuisine-track"><div class="bar-fill cuisine-fill" style="width:20%;background:#2EC4A0"></div></div>
           <span class="cuisine-count">3</span>
         </div>
       </div>
@@ -677,12 +905,12 @@
           <span class="legend-count">15 · 16%</span>
         </div>
         <div class="legend-row">
-          <div class="legend-dot" style="background:#8b5cf6"></div>
+          <div class="legend-dot" style="background:#1A9E82"></div>
           <span class="legend-name">$1M–$2.5M</span>
           <span class="legend-count">22 · 24%</span>
         </div>
         <div class="legend-row">
-          <div class="legend-dot" style="background:#4ade80"></div>
+          <div class="legend-dot" style="background:#2EC4A0"></div>
           <span class="legend-name">$2.5M–$5M</span>
           <span class="legend-count">6 · 6%</span>
         </div>
@@ -696,8 +924,8 @@
       <div style="height:32px;display:flex;margin-top:8px;overflow:hidden">
         <div style="width:51%;background:var(--accent);transform:scaleX(0);transform-origin:left;animation:barGrow 1.2s ease forwards;animation-delay:0.7s"></div>
         <div style="width:16%;background:var(--accent3);transform:scaleX(0);transform-origin:left;animation:barGrow 1.2s ease forwards;animation-delay:0.85s"></div>
-        <div style="width:24%;background:#8b5cf6;transform:scaleX(0);transform-origin:left;animation:barGrow 1.2s ease forwards;animation-delay:1.0s"></div>
-        <div style="width:6%;background:#4ade80;transform:scaleX(0);transform-origin:left;animation:barGrow 1.2s ease forwards;animation-delay:1.15s"></div>
+        <div style="width:24%;background:#1A9E82;transform:scaleX(0);transform-origin:left;animation:barGrow 1.2s ease forwards;animation-delay:1.0s"></div>
+        <div style="width:6%;background:#2EC4A0;transform:scaleX(0);transform-origin:left;animation:barGrow 1.2s ease forwards;animation-delay:1.15s"></div>
         <div style="flex:1;background:var(--accent2);transform:scaleX(0);transform-origin:left;animation:barGrow 1.2s ease forwards;animation-delay:1.3s"></div>
       </div>
     </div>
@@ -713,7 +941,7 @@
         <div class="stat-desc">of venues earn<br>under $500K/yr</div>
       </div>
       <div class="stat-tile">
-        <div class="stat-big" style="color:#8b5cf6">49%</div>
+        <div class="stat-big" style="color:#1A9E82">49%</div>
         <div class="stat-desc">earn over<br>$500K annually</div>
       </div>
       <div class="stat-tile">
@@ -721,7 +949,7 @@
         <div class="stat-desc">venues generating<br>$5M or more</div>
       </div>
       <div class="stat-tile">
-        <div class="stat-big" style="color:#4ade80">~$65M</div>
+        <div class="stat-big" style="color:#2EC4A0">~$65M</div>
         <div class="stat-desc">estimated total<br>combined revenue</div>
       </div>
     </div>
@@ -761,6 +989,137 @@
   </div>
 
 </div>
+
+<section class="qa-section">
+  <div class="qa-inner">
+    <div class="qa-header">
+      <div class="qa-label">// ASK THE DATA</div>
+      <p class="qa-hint">Ask anything about Downtown Toledo's food & drink scene</p>
+    </div>
+
+    <div class="qa-suggestions">
+      <button class="suggestion-chip" onclick="askQuestion(this.textContent)">Which cuisine has the most venues?</button>
+      <button class="suggestion-chip" onclick="askQuestion(this.textContent)">How many women-led restaurants are there?</button>
+      <button class="suggestion-chip" onclick="askQuestion(this.textContent)">What's the most common business size?</button>
+      <button class="suggestion-chip" onclick="askQuestion(this.textContent)">Which venues have the highest sales?</button>
+      <button class="suggestion-chip" onclick="askQuestion(this.textContent)">How many coffee shops are there?</button>
+      <button class="suggestion-chip" onclick="askQuestion(this.textContent)">What percentage of bars vs restaurants?</button>
+    </div>
+
+    <div class="qa-input-wrap">
+      <input type="text" class="qa-input" id="qaInput" placeholder="e.g. How many Asian restaurants are downtown?" onkeydown="if(event.key==='Enter') submitQuestion()" />
+      <button class="qa-submit" onclick="submitQuestion()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+
+    <div class="qa-response-wrap" id="qaResponse" style="display:none">
+      <div class="qa-response-label">RESPONSE</div>
+      <div class="qa-response-text" id="qaResponseText"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+const DATA_CONTEXT = `
+You are an analyst for Downtown Toledo's food and drink scene (ZIP 43604). Answer questions based ONLY on this data. Be concise, specific, and data-driven. Use numbers when possible.
+
+DATASET SUMMARY (93 total establishments):
+
+ESTABLISHMENT TYPES:
+- Restaurants: 53 (57%)
+- Bars: 15 (16%)
+- Coffee Shops: 8 (9%)
+- Caterers: 5 (5%)
+- Brewers: 2 (2%)
+- Other (Liquors-Retail, Pubs, Pizza, Hotels, etc.): 10 (11%)
+
+CUISINE TYPES (restaurants only, inferred from name):
+- American/Grill: 15 (Chop House, Fricker's, Greg's Grill, Michael's Bar & Grill, Rockwell's Steakhouse, Rusty's Road Trip, Fowl & Fodder, Grumpy's, Summit Diner, Jefferson Diner, Ottawa Tavern, Wesley's Bar, Ye Olde Cock N Bull, Ye Olde Durty Bird, Tim & Ed's)
+- Bistro/Cafe/Eclectic: 8 (Fine Things Bistro, Registry Bistro, Peacock Cafe, Adams Street Caf, Brim House, Glass City Cafe, Pam's Corner, Joesphine's Kitchen)
+- Deli/Sandwiches/Fast Food: 8 (Jimmy John's, Subway, Original Sub Shop, Roman's Deli, Savvy Sliders, Coney Island Hot Dog, Walnut Carryout, McDonald's)
+- Mediterranean/Middle Eastern: 5 (Souk Mediterranean Kitchen, Lazeez Restaurant, Pita Krunch, Georgios Cafe, Manos Greek Restaurant)
+- Asian: 5 (Kengo Sushi & Yakitori, China Star, Magic Wok, Balance Pan-Asian Grille, KATO Ramen)
+- Pub/Tavern/Sports Bar: 5 (Manhattan's Pub 'n Cheer, Tony Packo's, Mutz Inc, Mcnerney & Son, Ice Restaurant & Bar)
+- Italian/Pizza/Pasta: 4 (Spaghetti Warehouse, Home Slice Pizza, M Osteria & Bar, Focaccia's 419)
+- Mexican/Latin: 3 (San Marcos Restaurant, Poco Loco, Lowrider Cafe)
+
+EXECUTIVE GENDER (67 establishments with data, 26 no exec listed):
+- Male: 46 (69%)
+- Female: 21 (31%)
+
+EMPLOYEE SIZE:
+- 1-4 employees: 26 establishments
+- 5-9 employees: 33 establishments (most common)
+- 10-19 employees: 17 establishments
+- 20-49 employees: 7 establishments
+- 50-99 employees: 8 establishments
+- 100-249 employees: 1 establishment (Glass City Ctr)
+- Estimated total employees: ~470
+- Average: ~5 employees per establishment
+
+ANNUAL SALES VOLUME:
+- Under $500K: 47 (51%)
+- $500K-$1M: 15 (16%)
+- $1M-$2.5M: 22 (24%)
+- $2.5M-$5M: 6 (6%)
+- $5M+: 2 (2%) — Glass City Ctr ($5-10M), and one other ($50-100M)
+- Estimated combined revenue: ~$65M
+
+NOTABLE VENUES:
+- Glass City Ctr: largest employer (100-249 staff), $5-10M revenue, catering
+- Chop House-Toledo: 20-49 staff, $1-2.5M, credit score A (part of Main Street Ventures)
+- Fricker's: 20-49 staff, $1-2.5M, credit A
+- Georgios Cafe Intl: 20-49 staff, $1-2.5M, male-owned
+- Grumpy's: female-owned (Sara Bauman), $500K-$1M
+- BIGGBY Coffee: female-managed (Brooke Taylor), under $500K
+- Fowl & Fodder: female-managed (Alicia Wagner)
+- Tony Packo's: iconic Toledo hot dog restaurant
+
+COFFEE SHOPS (8 total):
+BIGGBY Coffee, Claro Coffee Bar, Grindhrs, House Of Coffee, Jennie's Coffee Shop, Maddie & Bella Coffee Roasters, plus 2 others
+
+BARS (15 total):
+Attic On Adams, Avalon Inc, Blarney Irish Pub (x2), Blueprint Sports Bar & Lounge, Bronze Boar LLC, Chevy's, Downtown Johnny's, Georgjz419, Heights, Holy Toledo Tavern, Jed's Downtown Barbeque & Brew, plus others
+
+ZIP CODE: 43604 covers downtown Toledo Ohio, near the Maumee River, government center, arts district.
+`;
+
+async function askQuestion(q) {
+  document.getElementById('qaInput').value = q;
+  submitQuestion();
+}
+
+async function submitQuestion() {
+  const input = document.getElementById('qaInput');
+  const q = input.value.trim();
+  if (!q) return;
+
+  const responseWrap = document.getElementById('qaResponse');
+  const responseText = document.getElementById('qaResponseText');
+
+  responseWrap.style.display = 'block';
+  responseText.innerHTML = '<span class="qa-loading"><span></span><span></span><span></span></span>';
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: DATA_CONTEXT,
+        messages: [{ role: 'user', content: q }]
+      })
+    });
+    const data = await res.json();
+    const text = data.content?.[0]?.text || 'No response received.';
+    responseText.textContent = text;
+  } catch (err) {
+    responseText.textContent = 'Error reaching the API. Please try again.';
+  }
+}
+</script>
 
 <footer>Toledo 43604 · Food &amp; Drink Landscape · 93 Verified Establishments · Data Visualization</footer>
 
