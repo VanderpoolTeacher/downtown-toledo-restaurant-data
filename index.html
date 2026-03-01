@@ -645,6 +645,21 @@
     .gender-track { height: 32px; }
     .suggestion-chip { font-size: 16px; }
   }
+
+  /* === CHAIN VS INDEPENDENT === */
+  .chain-wrap { display: flex; flex-direction: column; gap: 20px; }
+  .chain-split { display: flex; justify-content: space-between; align-items: flex-end; }
+  .chain-block { display: flex; flex-direction: column; gap: 4px; }
+  .chain-pct { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 40px; line-height: 1; }
+  .chain-name { font-size: 22px; font-weight: 600; color: var(--text); }
+  .chain-n { font-family: 'Outfit', sans-serif; font-weight: 300; font-size: 20px; color: var(--muted); }
+  .chain-bar { height: 12px; display: flex; overflow: hidden; }
+  .chain-bar-ind { background: var(--accent); transform: scaleX(0); transform-origin: left; animation: barGrow 1.2s cubic-bezier(0.4,0,0.2,1) forwards; animation-delay: 0.8s; }
+  .chain-bar-chain { flex: 1; background: var(--accent2); transform: scaleX(0); transform-origin: right; animation: barGrow 1.2s cubic-bezier(0.4,0,0.2,1) forwards; animation-delay: 1.0s; }
+  .chain-list-label { font-family: 'Outfit', sans-serif; font-weight: 300; font-size: 18px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .chain-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chain-tag { background: var(--bg); border: 1px solid var(--border); color: var(--text); font-size: 18px; padding: 6px 14px; font-family: 'DM Sans', sans-serif; }
+
 </style>
 </head>
 <body>
@@ -655,7 +670,7 @@
     <h1>DOWNTOWN TOLEDO<br><span>RESTAURANT DATA</span></h1>
   </div>
   <div class="header-stat">
-    <div class="big">93</div>
+    <div class="big">92</div>
     <div class="label">Establishments</div>
   </div>
 </header>
@@ -669,7 +684,7 @@
       <div class="cat-item">
         <div class="cat-header">
           <span class="cat-name">Restaurants</span>
-          <span class="cat-count">53 · 57%</span>
+          <span class="cat-count">52 · 57%</span>
         </div>
         <div class="bar-track"><div class="bar-fill restaurants" style="width:100%"></div></div>
       </div>
@@ -704,27 +719,35 @@
     </div>
   </div>
 
-  <!-- GENDER -->
+  <!-- CHAIN VS INDEPENDENT -->
   <div class="card">
-    <div class="card-label">// Executive Gender (67 w/ data)</div>
-    <div class="gender-split">
-      <div class="gender-labels">
-        <div class="gender-label-item">
-          <div class="gender-pct male">69%</div>
-          <div class="gender-name">Male</div>
+    <div class="card-label">// Chain vs Independent</div>
+    <div class="chain-wrap">
+      <div class="chain-split">
+        <div class="chain-block">
+          <div class="chain-pct" style="color:var(--accent)">89%</div>
+          <div class="chain-name">Independent</div>
+          <div class="chain-n">82 venues</div>
         </div>
-        <div class="gender-label-item" style="text-align:right">
-          <div class="gender-pct female">31%</div>
-          <div class="gender-name">Female</div>
-        </div>
-      </div>
-      <div class="gender-bar-wrap">
-        <div class="gender-track">
-          <div class="gender-male" style="width:68.7%">46</div>
-          <div class="gender-female" style="transform-origin: right;">21</div>
+        <div class="chain-block" style="text-align:right">
+          <div class="chain-pct" style="color:var(--accent2)">11%</div>
+          <div class="chain-name">Chain</div>
+          <div class="chain-n">10 venues</div>
         </div>
       </div>
-      <div class="no-execs">26 establishments — no exec listed</div>
+      <div class="chain-bar">
+        <div class="chain-bar-ind" style="width:89%"></div>
+        <div class="chain-bar-chain"></div>
+      </div>
+      <div class="chain-list-label">Notable chains</div>
+      <div class="chain-list">
+        <span class="chain-tag">McDonald's</span>
+        <span class="chain-tag">Subway</span>
+        <span class="chain-tag">Starbucks</span>
+        <span class="chain-tag">Jimmy John's</span>
+        <span class="chain-tag">BIGGBY Coffee</span>
+        <span class="chain-tag">Tony Packo's</span>
+      </div>
     </div>
   </div>
 
@@ -738,7 +761,7 @@
       <div class="cuisine-item">
         <div class="cuisine-header">
           <span class="cuisine-name">American / Grill</span>
-          <span class="cuisine-examples">Chop House, Fricker's, Greg's Grill, Michael's, Rockwell's, Rusty's, Fowl & Fodder, Grumpy's, Summit Diner, Jefferson Diner, Ottawa Tavern, Wesley's, Ye Olde Cock N Bull, Ye Olde Durty Bird, Tim & Ed's</span>
+          <span class="cuisine-examples">Chop House, Fricker's, Greg's Grill, Michael's, Rockwell's, Rusty's, Grumpy's, Summit Diner, Jefferson Diner, Ottawa Tavern, Wesley's, Ye Olde Cock N Bull, Ye Olde Durty Bird, Tim & Ed's</span>
         </div>
         <div class="cuisine-bar-row">
           <div class="bar-track cuisine-track"><div class="bar-fill restaurants cuisine-fill" style="width:100%"></div></div>
@@ -963,7 +986,6 @@
       <span class="ticker-item"><span>★</span> Fricker's</span>
       <span class="ticker-item"><span>★</span> Balance Pan-Asian Grille</span>
       <span class="ticker-item"><span>★</span> Manhattan's Pub 'n Cheer</span>
-      <span class="ticker-item"><span>★</span> Fowl & Fodder</span>
       <span class="ticker-item"><span>★</span> KATO Ramen</span>
       <span class="ticker-item"><span>★</span> Grumpy's</span>
       <span class="ticker-item"><span>★</span> BIGGBY Coffee</span>
@@ -977,7 +999,6 @@
       <span class="ticker-item"><span>★</span> Fricker's</span>
       <span class="ticker-item"><span>★</span> Balance Pan-Asian Grille</span>
       <span class="ticker-item"><span>★</span> Manhattan's Pub 'n Cheer</span>
-      <span class="ticker-item"><span>★</span> Fowl & Fodder</span>
       <span class="ticker-item"><span>★</span> KATO Ramen</span>
       <span class="ticker-item"><span>★</span> Grumpy's</span>
       <span class="ticker-item"><span>★</span> BIGGBY Coffee</span>
@@ -1024,10 +1045,10 @@
 const DATA_CONTEXT = `
 You are an analyst for Downtown Toledo's food and drink scene (ZIP 43604). Answer questions based ONLY on this data. Be concise, specific, and data-driven. Use numbers when possible.
 
-DATASET SUMMARY (93 total establishments):
+DATASET SUMMARY (92 total establishments):
 
 ESTABLISHMENT TYPES:
-- Restaurants: 53 (57%)
+- Restaurants: 52 (57%)
 - Bars: 15 (16%)
 - Coffee Shops: 8 (9%)
 - Caterers: 5 (5%)
@@ -1035,7 +1056,7 @@ ESTABLISHMENT TYPES:
 - Other (Liquors-Retail, Pubs, Pizza, Hotels, etc.): 10 (11%)
 
 CUISINE TYPES (restaurants only, inferred from name):
-- American/Grill: 15 (Chop House, Fricker's, Greg's Grill, Michael's Bar & Grill, Rockwell's Steakhouse, Rusty's Road Trip, Fowl & Fodder, Grumpy's, Summit Diner, Jefferson Diner, Ottawa Tavern, Wesley's Bar, Ye Olde Cock N Bull, Ye Olde Durty Bird, Tim & Ed's)
+- American/Grill: 14 (Chop House, Fricker's, Greg's Grill, Michael's Bar & Grill, Rockwell's Steakhouse, Rusty's Road Trip, Grumpy's, Summit Diner, Jefferson Diner, Ottawa Tavern, Wesley's Bar, Ye Olde Cock N Bull, Ye Olde Durty Bird, Tim & Ed's)
 - Bistro/Cafe/Eclectic: 8 (Fine Things Bistro, Registry Bistro, Peacock Cafe, Adams Street Caf, Brim House, Glass City Cafe, Pam's Corner, Joesphine's Kitchen)
 - Deli/Sandwiches/Fast Food: 8 (Jimmy John's, Subway, Original Sub Shop, Roman's Deli, Savvy Sliders, Coney Island Hot Dog, Walnut Carryout, McDonald's)
 - Mediterranean/Middle Eastern: 5 (Souk Mediterranean Kitchen, Lazeez Restaurant, Pita Krunch, Georgios Cafe, Manos Greek Restaurant)
@@ -1073,7 +1094,6 @@ NOTABLE VENUES:
 - Georgios Cafe Intl: 20-49 staff, $1-2.5M, male-owned
 - Grumpy's: female-owned (Sara Bauman), $500K-$1M
 - BIGGBY Coffee: female-managed (Brooke Taylor), under $500K
-- Fowl & Fodder: female-managed (Alicia Wagner)
 - Tony Packo's: iconic Toledo hot dog restaurant
 
 COFFEE SHOPS (8 total):
@@ -1121,7 +1141,7 @@ async function submitQuestion() {
 }
 </script>
 
-<footer>Toledo 43604 · Food &amp; Drink Landscape · 93 Verified Establishments · Data Visualization</footer>
+<footer>Toledo 43604 · Food &amp; Drink Landscape · 92 Verified Establishments · Data Visualization</footer>
 
 </body>
 </html>
