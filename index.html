@@ -660,6 +660,22 @@
   .chain-list { display: flex; flex-wrap: wrap; gap: 8px; }
   .chain-tag { background: var(--bg); border: 1px solid var(--border); color: var(--text); font-size: 18px; padding: 6px 14px; font-family: 'DM Sans', sans-serif; }
 
+
+  .map-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 18px;
+    color: var(--muted);
+  }
+  .map-legend-item span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+  }
 </style>
 </head>
 <body>
@@ -979,15 +995,150 @@
   </div>
   <!-- MAP -->
   <div class="card span-3" style="padding:0;overflow:hidden;">
-    <div style="padding:40px 40px 24px;"><div class="card-label">// Downtown Toledo · ZIP 43604</div></div>
-    <iframe
-      src="https://www.openstreetmap.org/export/embed.html?bbox=-83.5650%2C41.6450%2C-83.5050%2C41.6850&layer=mapnik&marker=41.6638%2C-83.5379"
-      width="100%"
-      height="420"
-      style="border:none;display:block;filter:saturate(0.7) hue-rotate(160deg) brightness(0.95);"
-      title="Downtown Toledo map"
-    ></iframe>
+    <div style="padding:40px 40px 16px 40px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+      <div class="card-label" style="margin-bottom:0">// Restaurant Locations · Downtown Toledo 43604</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;" id="mapLegend">
+        <span class="map-legend-item"><span style="background:#2EC4A0"></span>Restaurants</span>
+        <span class="map-legend-item"><span style="background:#e05c3a"></span>Bars</span>
+        <span class="map-legend-item"><span style="background:#8b5cf6"></span>Coffee Shops</span>
+        <span class="map-legend-item"><span style="background:#f59e0b"></span>Caterers</span>
+        <span class="map-legend-item"><span style="background:#94a3b8"></span>Other</span>
+      </div>
+    </div>
+    <div id="toledoMap" style="height:500px;width:100%;"></div>
   </div>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script>
+  (function() {
+    var map = L.map('toledoMap', {zoomControl: true, scrollWheelZoom: false}).setView([41.6638, -83.5379], 14);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors',
+      maxZoom: 19
+    }).addTo(map);
+
+    var colors = {
+      'Restaurants': '#2EC4A0',
+      'Bars': '#e05c3a',
+      'Pubs': '#e05c3a',
+      'Coffee Shops': '#8b5cf6',
+      'Coffee & Tea': '#8b5cf6',
+      'Caterers': '#f59e0b',
+      'default': '#94a3b8'
+    };
+
+    function makeIcon(color) {
+      return L.divIcon({
+        className: '',
+        html: '<div style="width:12px;height:12px;border-radius:50%;background:' + color + ';border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,0.3);"></div>',
+        iconSize: [12, 12],
+        iconAnchor: [6, 6]
+      });
+    }
+
+    var locations = [
+      ["Adams Street Caf", 41.6601, -83.5391, "Restaurants"],
+      ["Attic On Adams", 41.6665, -83.5356, "Bars"],
+      ["Avalon Inc", 41.6625, -83.5403, "Bars"],
+      ["Balance Pan-Asian Grille", 41.6642, -83.5375, "Restaurants"],
+      ["Bellwether At Toledo Spirits", 41.6705, -83.5367, "Other"],
+      ["BIGGBY Coffee", 41.6633, -83.5385, "Coffee Shops"],
+      ["Blarney Irish Pub", 41.6638, -83.5372, "Bars"],
+      ["Blarney Irish Pub (Monroe)", 41.6622, -83.5390, "Pubs"],
+      ["Blueprint Sports Bar & Lounge", 41.6672, -83.5340, "Bars"],
+      ["Brim House", 41.6646, -83.5370, "Restaurants"],
+      ["Bronze Boar LLC", 41.6624, -83.5403, "Bars"],
+      ["Central Catering To U", 41.6618, -83.5381, "Caterers"],
+      ["Chevy's", 41.6626, -83.5388, "Bars"],
+      ["China Star", 41.6590, -83.5435, "Restaurants"],
+      ["Chop House-Toledo", 41.6640, -83.5374, "Restaurants"],
+      ["Claro Coffee Bar", 41.6668, -83.5354, "Coffee Shops"],
+      ["Coney Island Hot Dog", 41.6630, -83.5386, "Restaurants"],
+      ["Downtown Johnny's", 41.6612, -83.5380, "Bars"],
+      ["Event Center", 41.6639, -83.5376, "Caterers"],
+      ["Fine Things Bistro", 41.6623, -83.5393, "Restaurants"],
+      ["Focaccia's 419", 41.6638, -83.5373, "Restaurants"],
+      ["Fricker's", 41.6625, -83.5394, "Restaurants"],
+      ["Georgios Cafe Intl", 41.6631, -83.5385, "Restaurants"],
+      ["Georgjz419", 41.6649, -83.5362, "Bars"],
+      ["Glass City Cafe", 41.6649, -83.5355, "Restaurants"],
+      ["Glass City Ctr", 41.6612, -83.5380, "Caterers"],
+      ["Gregs Grill Downtown", 41.6717, -83.5365, "Restaurants"],
+      ["Grindhrs", 41.6604, -83.5390, "Coffee Shops"],
+      ["Grumpy's", 41.6625, -83.5404, "Restaurants"],
+      ["Heights", 41.6647, -83.5370, "Bars"],
+      ["Holy Toledo Tavern", 41.6626, -83.5394, "Bars"],
+      ["Holy Trinity Greek Orthodox", 41.6644, -83.5383, "Caterers"],
+      ["Home Slice Pizza", 41.6624, -83.5393, "Restaurants"],
+      ["House Of Coffee", 41.6618, -83.5381, "Coffee Shops"],
+      ["Ice Restaurant & Bar", 41.6618, -83.5382, "Restaurants"],
+      ["Jed's Downtown BBQ", 41.6635, -83.5387, "Bars"],
+      ["Jefferson Diner", 41.6596, -83.5358, "Restaurants"],
+      ["Jennie's Coffee Shop", 41.6616, -83.5377, "Coffee Shops"],
+      ["Jimmy John's", 41.6602, -83.5391, "Restaurants"],
+      ["Joesphine's Kitchen", 41.6573, -83.5422, "Restaurants"],
+      ["KATO Ramen", 41.6623, -83.5392, "Restaurants"],
+      ["Kengo Sushi & Yakitori", 41.6623, -83.5393, "Restaurants"],
+      ["Lazeez Restaurant", 41.6632, -83.5393, "Restaurants"],
+      ["Lowrider Cafe", 41.6638, -83.5408, "Restaurants"],
+      ["M Osteria & Bar", 41.6622, -83.5390, "Restaurants"],
+      ["Maddie & Bella Coffee Roasters", 41.6622, -83.5392, "Coffee Shops"],
+      ["Manhattan's Pub 'n Cheer", 41.6658, -83.5356, "Restaurants"],
+      ["Manos Greek Restaurant", 41.6665, -83.5356, "Restaurants"],
+      ["Maumee Bay Brewing Co", 41.6620, -83.5400, "Restaurants"],
+      ["Mc Donald's", 41.6705, -83.5500, "Restaurants"],
+      ["Mcnerney & Son", 41.6610, -83.5445, "Restaurants"],
+      ["Michael's Bar & Grill", 41.6628, -83.5383, "Restaurants"],
+      ["Mona's Riverview Lounge", 41.6716, -83.5365, "Bars"],
+      ["Mutz Inc", 41.6620, -83.5400, "Restaurants"],
+      ["Noir Hybrid Lounge", 41.6602, -83.5391, "Other"],
+      ["Oliver House Complex", 41.6620, -83.5400, "Other"],
+      ["Original Sub Shop & Deli", 41.6617, -83.5399, "Restaurants"],
+      ["Ottawa Tavern", 41.6666, -83.5354, "Restaurants"],
+      ["Pam's Corner LTD", 41.6559, -83.5374, "Restaurants"],
+      ["Peacock Cafe", 41.6680, -83.5330, "Restaurants"],
+      ["Pita Krunch", 41.6569, -83.5408, "Restaurants"],
+      ["Pizza Papalis", 41.6622, -83.5389, "Restaurants"],
+      ["Poco Loco", 41.6667, -83.5353, "Restaurants"],
+      ["Quenched & Tempered", 41.6649, -83.5356, "Other"],
+      ["Registry Bistro", 41.6637, -83.5386, "Restaurants"],
+      ["Renaissance Toledo Downtown", 41.6647, -83.5370, "Other"],
+      ["Rockwell's Steakhouse", 41.6620, -83.5400, "Restaurants"],
+      ["Roman's Deli", 41.6649, -83.5357, "Restaurants"],
+      ["Rustbelt Coffee", 41.6636, -83.5397, "Coffee Shops"],
+      ["San Marcos Restaurant", 41.6618, -83.5400, "Restaurants"],
+      ["Savvy Sliders", 41.6591, -83.5435, "Restaurants"],
+      ["Souk Mediterranean Kitchen", 41.6617, -83.5410, "Restaurants"],
+      ["Spaghetti Warehouse", 41.6627, -83.5391, "Restaurants"],
+      ["Starbucks", 41.6639, -83.5374, "Coffee Shops"],
+      ["Subway", 41.6597, -83.5393, "Restaurants"],
+      ["Summit Diner", 41.6695, -83.5368, "Restaurants"],
+      ["Sweet Nate's Coffee", 41.6621, -83.5400, "Coffee Shops"],
+      ["Table Forty", 41.6623, -83.5389, "Bars"],
+      ["Tim & Ed's Bar & Grill", 41.6578, -83.5430, "Restaurants"],
+      ["Toledo Grecian Ctr", 41.6644, -83.5383, "Caterers"],
+      ["Toledo Mud Hens Baseball Club", 41.6609, -83.5373, "Other"],
+      ["Toledo Spirits Co LLC", 41.6705, -83.5367, "Bars"],
+      ["Tony Packo's", 41.6631, -83.5390, "Restaurants"],
+      ["Truenorth", 41.6627, -83.5388, "Other"],
+      ["Valentine Theatre", 41.6601, -83.5391, "Other"],
+      ["Walnut Carryout", 41.6573, -83.5374, "Restaurants"],
+      ["Warp Entertainment", 41.6630, -83.5401, "Bars"],
+      ["Wesley's Bar", 41.6650, -83.5363, "Restaurants"],
+      ["Ye Olde Cock N Bull", 41.6625, -83.5404, "Restaurants"],
+      ["Ye Olde Durty Bird", 41.6624, -83.5395, "Restaurants"]
+    ];
+
+    locations.forEach(function(loc) {
+      var color = colors[loc[3]] || colors['default'];
+      L.marker([loc[1], loc[2]], {icon: makeIcon(color)})
+        .addTo(map)
+        .bindPopup('<strong style="font-family:Outfit,sans-serif;font-size:14px;">' + loc[0] + '</strong><br><span style="font-size:12px;color:#666;">' + loc[3] + '</span>');
+    });
+  })();
+  </script>
 
   <!-- TICKER -->
   <div class="ticker-wrap">
